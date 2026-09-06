@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Photo Themes</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Georgia, serif;
+      background: #f7f7f7;
+      color: #333;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 700px;
+      text-align: center;
+      padding: 70px 20px;
+    }
+
+    h1 {
+      margin: 0 0 25px;
+      font-size: 36px;
+      color: #555;
+      text-shadow: 2px 3px 5px rgba(0, 0, 0, 0.35);
+    }
+
+    input {
+      width: 100%;
+      max-width: 335px;
+      padding: 13px 16px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      outline: none;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.18);
+    }
+
+    button {
+      display: block;
+      margin: 12px auto 0;
+      padding: 9px 24px;
+      border: none;
+      border-radius: 10px;
+      background: #5b5b5b;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 5px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    button:hover {
+      background: #444;
+    }
+
+    #saved {
+      margin-top: 25px;
+      font-family: Arial, sans-serif;
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <h1>Daily Photo Themes</h1>
+
+    <input
+      id="topic"
+      type="text"
+      placeholder="Enter a topic"
+      autocomplete="off"
+    >
+
+    <button id="save">Save</button>
+
+    <div id="saved"></div>
+  </main>
+
+  <script>
+    const input = document.getElementById("topic");
+    const button = document.getElementById("save");
+    const saved = document.getElementById("saved");
+
+    const previousTopic = localStorage.getItem("dailyPhotoTheme");
+
+    if (previousTopic) {
+      input.value = previousTopic;
+      saved.textContent = "Saved: " + previousTopic;
+    }
+
+    button.addEventListener("click", () => {
+      const topic = input.value.trim();
+
+      if (!topic) {
+        saved.textContent = "Please enter a topic.";
+        return;
+      }
+
+      localStorage.setItem("dailyPhotoTheme", topic);
+      saved.textContent = "Saved: " + topic;
+    });
+  </script>
+</body>
+</html>
